@@ -1,1 +1,1 @@
-from .log2 import naive, lookup_table
+from .log2 import naive, lookup_table, fast_lookup_table
