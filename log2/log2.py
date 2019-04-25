@@ -11,6 +11,10 @@ def naive(x):
     x : int
         The unsigned 32-bit word to find the log base 2 of.
 
+    References
+    ----------
+    .. [1] https://graphics.stanford.edu/~seander/bithacks.html#IntegerLogObvious
+
     Returns
     -------
     int
@@ -41,6 +45,10 @@ def lookup_table(x):
     ----------
     x : int
         The unsigned 32-bit word to find the log base 2 of.
+
+    References
+    ----------
+    .. [1] https://graphics.stanford.edu/~seander/bithacks.html#IntegerLogDeBruijn
 
     Returns
     -------
@@ -77,6 +85,29 @@ log_table_256 = [
 ]
 
 def fast_lookup_table(x):
+    """
+    Compute the log base 2 of an unsigned 32-bit word
+
+    Fast method using a 256 elements log2 lookup table.
+    Only needs 7 operations for computing the log base 2
+    of a unsigned 32-bit word. This method takes a lot more
+    memory space than the one implemented in `lookup_table`
+    but is faster.
+
+    Parameters
+    ----------
+    x : int
+        The unsigned 32-bit word to find the log base 2 of.
+
+    References
+    ----------
+    .. [1] https://graphics.stanford.edu/~seander/bithacks.html#IntegerLogLookup
+
+    Returns
+    -------
+    int
+        The log base 2 of `x`
+    """
     r = 0
     tt = x >> 16
     if tt:
