@@ -1,0 +1,33 @@
+language: python
+python:
+  - "3.5"
+  - "3.6"
+
+install:
+  - pip install -r requirements-dev.txt
+
+script:
+  # Run the tests and benchmarks
+  - python -m pytest log2
+  # run the doc examples
+  - cd docs
+  - make doctest
+  # build the doc
+  - make html
+  - cd ..
+
+# Deployment and upload to PyPI if a commit is tagged and only on the master branch
+# https://docs.travis-ci.com/user/deployment/pypi/#deploying-tags
+deploy:
+  provider: pypi
+  user: "bmatthieu3"
+  # Encryption of the password 
+  # https://docs.travis-ci.com/user/encryption-keys/
+  password:
+    secure: "oE9Po3qB5YxuYWTaqCptRSdXc4bnAUan6LFiE3o2Jp/uyRcsjTpw9zCJgTmlGL1kPUpaA1NKmFEjUtkiqI4noGnWYcxJEofgMuN1B1HU0bjhI1+45Ed9+lBIztaopl8pzF/8vGo0fevT1PYcdCQjVPRYIebTht4TkRmJuqcFmmEbsb+AqFHqjWD4rVVyJsbP5GIDFGdU1YC4zqBQvi6rQvtYH6YHI/RvGxbJnNvI1esghhHjM7whzrqydShInPiYNenDvDuzIKpuROGa2TTvnjzZw/N9X95TX7UZrs/GQqa1VswniDLObHpm3qomcpCDfMh1OPyIYqEOrEkqJ/Ma0rcuM+xTjoNHjCcR/3didD07LyPTNRYC2Yt5sKl9W79g1AhxpFt1wk1sm2pYxo+iLEAoKfoSfZ8+7fI8hjHxVjW1yBzX6kszpbwNzFQDCD45zEY3b73F9+Q3k7bbCJbqn7+j8ssxMaPbx0jfqHmZesi973/oz8V4W5B2Y+RPKRK8rgcKrz8YQ4d6NR3thFStOi+NhTHaQjTiDnzYnvs3GszCdQZEs/ragba+i9gSUuID5JgXPMjj55CsnmI/Q5QGJ/AbZsaD9vB8Fz7cl7evlwcZx3aZcrkfMVwmR4wp+viaL1pTR32XXZSTUz3VckSKxcjb7918vKGW69snuXl4N4g="
+  # Upload a source and a wheel distribution
+  distributions: "sdist bdist_wheel"
+  # Avoid the PyPI error message: HTTPError: 400 Client Error: File already exists.
+  skip_existing: true
+  on:
+    tags: true
