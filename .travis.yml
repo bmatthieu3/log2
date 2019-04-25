@@ -1,0 +1,21 @@
+language: python
+python:
+- '3.5'
+- '3.6'
+install:
+- pip install -r requirements-dev.txt
+script:
+- python -m pytest log2
+- cd docs
+- make doctest
+- make html
+- cd ..
+deploy:
+  provider: pypi
+  user: bmatthieu3
+  password:
+    secure: X4G8qI2DMioYhgkRLi7IoazPOk6jbRAMr4O36yg+NiAdP4n2hKG8JcJjeg8FU/YtWDBrGDRQoNQbN2J7JwdvqHHIgUdlt0/VR87LdsF+qEA7oiX5hqhM7RJny4yNuXuT4wlOgTpYa2JTuoplasVJHdBtDojOmwLXztOg4beywrP7ELBpXgSCi8w6RbX+MQzSjZ9R4rku/EQxt6HkejwRZ0ZVRez1ciL5/NRP/bgTvEpeeORCo7kt8mk2WyUvkWcPWsjSwZWDNauexFqOPfl90hRoafmyuDbXHw0RUyZoiDQFJOY6af4YhSWUfYRerl62pTOop+ujsOyg4aPyQaJeDNQ2ze+Kd8j2IQrSMtGHmmr8Rgdcm3dgaXTOBk+DPP9784hWj2u8RaPAid6nZGRd+O3gOCOB7pOHqQQDIa/ULRiRY/IxIr+pzplBy/ABr2zlrF9lX2B0Quu/A5lYwJWP/ZAGCEmJsdrxYnU//4qkkYdStIask3QiZRGaeN8/eeHyDSSnA1NXr3vckAUxrzXyNDvvSuWsVHMq3wofc9Wg3VK51iDPtZSCE/U1CWvX8kwCDXaMNAr97UfjwlLJQuaNVAReBWP1381evoIL5WMLcVcCfUoKVjGVryGZwM9CvkAmTPQcf88Vlsl0OczrWzzfMY8OrZDmP+RFfwQUJHyW8q0=
+  distributions: sdist bdist_wheel
+  skip_existing: true
+  on:
+    tags: true
