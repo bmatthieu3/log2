@@ -118,3 +118,57 @@ def fast_lookup_table(x):
         r = (8 + log_table_256[t]) if t else log_table_256[x]
 
     return r
+
+from . import _core
+
+def fast_lookup_table_c(x):
+    """
+    Compute the log base 2 of an unsigned 32-bit word on the C side
+
+    Fast method using a 256 elements log2 lookup table.
+    Only needs 7 operations for computing the log base 2
+    of a unsigned 32-bit word. This method takes a lot more
+    memory space than the one implemented in `lookup_table`
+    but is faster.
+
+    Parameters
+    ----------
+    x : int
+        The unsigned 32-bit word to find the log base 2 of.
+
+    References
+    ----------
+    .. [1] https://graphics.stanford.edu/~seander/bithacks.html#IntegerLogLookup
+
+    Returns
+    -------
+    int
+        The log base 2 of `x`
+    """
+    return _core.fast_lookup_table_c(x)
+
+def fast_lookup_table_c_ufunc(x):
+    """
+    Compute the log base 2 of an unsigned 32-bit word using C-numpy functions
+
+    Fast method using a 256 elements log2 lookup table.
+    Only needs 7 operations for computing the log base 2
+    of a unsigned 32-bit word. This method takes a lot more
+    memory space than the one implemented in `lookup_table`
+    but is faster.
+
+    Parameters
+    ----------
+    x : `np.array(dtype=uint32)`
+        The unsigned 32-bit word to find the log base 2 of.
+
+    References
+    ----------
+    .. [1] https://graphics.stanford.edu/~seander/bithacks.html#IntegerLogLookup
+
+    Returns
+    -------
+    np.array(dtype=uint8)
+        The log base 2 of `x`
+    """
+    return _core.log2_fast_lookup_table_c_ufunc(x)
