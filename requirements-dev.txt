@@ -1,0 +1,6 @@
+# Packages for testing
+pytest-benchmark
+numpy
+# Packages for deploying
+sphinx
+numpydoc
